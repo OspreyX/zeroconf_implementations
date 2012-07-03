@@ -604,16 +604,6 @@ void Zeroconf::resolve_callback(
 	        	discovered_service_set::iterator iter = zeroconf->find_discovered_service(service);
 				if ( iter != zeroconf->discovered_services.end() ) {
 					/*********************
-					** Logging
-					**********************/
-					if ( (*iter)->service.ipv4_addresses.size() == 0 ) {
-						ROS_WARN_STREAM("Zeroconf: timed out resolving service [" << name << "][" <<  type << "][" << domain << "][" << interface << "][" << zeroconf->avahi_to_txt_protocol(protocol) << "][" << (*iter)->service.ipv4_addresses[0] << ":" << (*iter)->service.port << "]");
-					} else if ( (*iter)->service.ipv6_addresses.size() == 0 ) {
-						ROS_WARN_STREAM("Zeroconf: timed out resolving service [" << name << "][" <<  type << "][" << domain << "][" << interface << "][" << zeroconf->avahi_to_txt_protocol(protocol) << "][" << (*iter)->service.ipv6_addresses[0] << ":" << (*iter)->service.port << "]");
-					} else {
-						ROS_WARN_STREAM("Zeroconf: timed out resolving service [" << name << "][" <<  type << "][" << domain << "][" << interface << "][" << zeroconf->avahi_to_txt_protocol(protocol) << "]");
-					}
-					/*********************
 					** Update
 					**********************/
 					(*iter)->service.ipv4_addresses.clear();
@@ -628,7 +618,6 @@ void Zeroconf::resolve_callback(
 						zeroconf->lost_connection_signal(service);
 					}
 				} else {
-					ROS_ERROR_STREAM("Zeroconf: timed out resolving a service that was not saved, probably a zeroconf_avahi bug!");
 				}
 			}
             break;
